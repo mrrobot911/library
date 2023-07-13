@@ -1,12 +1,14 @@
+'use client'
 import Image from "next/image";
-import { FunctionComponent } from "react";
+import { FunctionComponent, useState } from "react";
 import Header_h2 from "../scripts/Header_h2";
 import CheckboxSlider from "../scripts/ChackboxSlider";
 
 interface AboutProps {
 }
 const About: FunctionComponent<AboutProps> = () => {
-
+    const [radio, setRadio] = useState<number>(1);
+    const inputLink = [1,2,3];
     const imageLink = [
         "/images/image1.png",
         "/images/image2.png",
@@ -21,7 +23,7 @@ const About: FunctionComponent<AboutProps> = () => {
             <div className="flex mx-[20px] gap-[25px]">
                 {imageLink.map(item => <Image key ={item} src={item} width={450} height={560} alt="library photo"/>)}
             </div>
-            <CheckboxSlider />
+            <CheckboxSlider radio={radio} setRadio={setRadio} inputLink={inputLink}/>
         </section>
      );
 }

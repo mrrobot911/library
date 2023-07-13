@@ -7,14 +7,13 @@ import bookBase from "../database/books.json";
 
 interface FavoritesProps {
 }
-const book = bookBase;
  
 const Favorites: FunctionComponent<FavoritesProps> = () => {
-    const [season, setSeason] = useState<keyof typeof book>('Winter');
-    const [bookSet, setbookSet] = useState(book[season]);
-    const inputLink = ['Winter','Spring','Summer','Autumn'];
+    const [season, setSeason] = useState<keyof typeof bookBase>('Winter');
+    const [bookSet, setbookSet] = useState(bookBase[season]);
+    const inputLink = Object.keys(bookBase);
     useEffect(() => {
-      setbookSet(book[season])
+      setbookSet(bookBase[season])
     }, [season])
     
     return ( 
@@ -22,7 +21,7 @@ const Favorites: FunctionComponent<FavoritesProps> = () => {
             <Header_h2 letter="favorites" />
             <p className="font-bold ml-[20px] text-[20px] mb-[40px]">Pick favorites of season</p>
             <ChackboxSeason inputLink={inputLink} season={season} setSeason={setSeason}/>
-            <div className="flex">
+            <div className="flex flex-wrap mx-[20px] gap-x-[260px] gap-y-[40px]">
               { bookSet.map(item => <BookCard key={item.name} name={item.name} author={item.author} text={item.text} image={item.image}/>)}
             </div>
         </section>

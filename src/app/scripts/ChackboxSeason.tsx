@@ -1,6 +1,5 @@
-
 interface CheckboxProps {
-    setSeason:(swason:string)=>void
+    setSeason:(action: string | ((prevState: string) => string)) => void
     inputLink:string[]
     season:string
 }
