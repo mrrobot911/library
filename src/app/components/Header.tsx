@@ -13,22 +13,17 @@ interface header  {}
  
 const Header : FunctionComponent<header> = () => {
     return ( 
-    <header className="container relative h-[600px] w-[1440px]">
-        <div className="absolute inset-0 h-[600px]">
-            <Image
-                src="/images/biblio.jpeg"
-                alt="background image"
-                fill
-                objectFit="cover"
-            />
-        </div>
-        <div className="relative z-10 flex items-center px-5 bg-black justify-between h-[90px]">
-            <h4 className="text-white">Brooklyn Public Library</h4>
-            <ul className="flex justify-between gap-3">
-                {arr.map(item => {return <li key={item}><a className="text-white">{item}</a></li>})}
-            </ul>
-        </div>
-        <h1 className="relative z-10 text-white">Welcome to the Brooklyn Library</h1>
+    <header className="flex items-center justify-between max-w-[1440px] h-[90px] bg-black">
+        <h1 className="text-white font-['Forum'] text-[30px] px-5 tracking-[0.6px] font-normal">Brooklyn Public Library</h1>
+        <nav className="px-5">
+            <div className="flex justify-between gap-[40px]">
+                <ul className="flex justify-between gap-[30px]">
+                    {arr.map(item => {return <li key={item}><a className="text-white text-[20px] leading-[50px]" href="#">{item}</a></li>})}
+                </ul>
+                <button><Image src="/images/icon_profile.png" alt="profile image" width={28} height={28}/></button>
+            </div>
+        </nav>
+
     </header> 
     );
 }
