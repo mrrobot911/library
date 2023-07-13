@@ -23,7 +23,6 @@ const Header : FunctionComponent<header> = () => {
                 <button><Image src="/images/icon_profile.png" alt="profile image" width={28} height={28}/></button>
             </div>
         </nav>
-
     </header> 
     );
 }

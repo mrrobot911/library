@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { FunctionComponent } from "react";
-import Checkbox from "../scripts/Chackbox";
+import Header_h2 from "../scripts/Header_h2";
+import CheckboxSlider from "../scripts/ChackboxSlider";
 
 interface AboutProps {
 }
@@ -15,13 +16,12 @@ const About: FunctionComponent<AboutProps> = () => {
     ]
     return ( 
         <section>
-            <h2 className="text-center my-[20px] font-['Forum'] text-[40px] tracking-[2px]">About</h2>
-            <hr className="h-[1px] w-[50px] mx-auto bg-black border-0"/>
-            <p className="text-center mt-[40px] mb-[20px] capitalize">The Brooklyn Library is a free workspace, a large number of books and a cozy coffee shop inside </p>
+            <Header_h2 letter={"about"} />
+            <p className="text-center mb-[20px]">The Brooklyn Library is a free workspace, a large number of books and a cozy coffee shop inside </p>
             <div className="flex mx-[20px] gap-[25px]">
                 {imageLink.map(item => <Image key ={item} src={item} width={450} height={560} alt="library photo"/>)}
             </div>
-            <Checkbox />
+            <CheckboxSlider />
         </section>
      );
 }
