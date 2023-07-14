@@ -1,5 +1,8 @@
+import { Dispatch, SetStateAction } from "react";
+import bookBase from "../database/books.json";
+
 interface CheckboxProps {
-    setSeason:(action: string | ((prevState: string) => string)) => void
+    setSeason:Dispatch<SetStateAction<keyof typeof bookBase>>
     inputLink:string[]
     season:string
 }

@@ -1,6 +1,8 @@
 import About from "./components/About";
+import CoffeeShop from "./components/CoffeeShop";
 import Favorites from "./components/Favorites";
 import Header from "./components/Header";
+import OurContacts from "./components/OurContacts";
 import Welcome from "./components/Welcome";
 
 export default function Home() {
@@ -10,6 +12,8 @@ export default function Home() {
       <Welcome />
       <About/>
       <Favorites/>
+      <CoffeeShop />
+      <OurContacts />
     </main>
   )
 }
