@@ -1,14 +1,10 @@
-import { FunctionComponent } from "react";
 import Header_h2 from "./Header_h2";
 import price_db from "../database/price.json"
 import Price from "./Price";
 
-interface CoffeeShopProps {
-}
+const priceLinks = Object.keys(price_db);
  
-const CoffeeShop: FunctionComponent<CoffeeShopProps> = () => {
-    const priceLinks =Object.keys(price_db);
-    
+const CoffeeShop = () => {
     return ( 
         <section>
             <Header_h2 letter={"Coffee shop"} />

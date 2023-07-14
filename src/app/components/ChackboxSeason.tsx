@@ -10,7 +10,7 @@ interface CheckboxProps {
 function ChackboxSeason({inputLink, season, setSeason}:CheckboxProps){
 
     const radioBtn = (e:React.ChangeEvent<HTMLInputElement>) => { 
-        setSeason(e.target.value)  
+        setSeason(e.target.value);
     }
     return ( 
         <ul className="flex my-[40px] justify-start gap-[90px] ml-[20px]">
