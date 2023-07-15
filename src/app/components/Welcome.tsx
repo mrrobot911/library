@@ -1,11 +1,6 @@
 import Image from "next/image"
-import { FunctionComponent } from "react";
 
-interface Props {
-    
-}
- 
-const Welcome: FunctionComponent<Props> = () => {
+const Welcome = () => {
     return ( 
         <section className="container relative h-[600px] max-w-[1440px]">
             <div className="absolute inset-0 h-[600px]">

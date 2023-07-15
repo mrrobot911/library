@@ -2,7 +2,7 @@ import Header_h2 from "./Header_h2";
 import price_db from "../database/price.json"
 import Price from "./Price";
 
-const priceLinks = Object.keys(price_db);
+const priceLinks = Object.keys(price_db) as Array<keyof typeof price_db>;
 
 const CoffeeShop = () => {
     return ( 

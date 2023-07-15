@@ -1,11 +1,7 @@
 'use client'
-import { FunctionComponent, useState } from "react";
-
-interface LibraryCardProps {
-    
-}
+import { useState } from "react";
  
-const LibraryCard: FunctionComponent<LibraryCardProps> = () => {
+const LibraryCard = () => {
     const [auth, setAuth] = useState(false)
     return (
         <div className="flex items-between justify-between">

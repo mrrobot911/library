@@ -7,8 +7,7 @@ import bookBase from "../database/books.json";
 
 type book = keyof typeof bookBase;
 const Favorites = () => {
-    // const inputLink:Array<book> = Object.keys(bookBase);
-    const inputLink:Array<book> = ["Winter", "Spring", "Summer", "Autumn"];
+    const inputLink:Array<book> = Object.keys(bookBase) as Array<keyof typeof bookBase>;
     const [season, setSeason] = useState<book>('Winter');
     const [bookSet, setbookSet] = useState(bookBase[season]);
     useEffect(() => {

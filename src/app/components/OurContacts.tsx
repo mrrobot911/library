@@ -1,12 +1,8 @@
 'use client'
-import { FunctionComponent } from "react";
 import Header_h2 from "./Header_h2";
 import { YMaps, Map } from '@pbe/react-yandex-maps';
 
-interface OurContactsProps {
-}
- 
-const OurContacts: FunctionComponent<OurContactsProps> = () => {
+const OurContacts = () => {
     return (
         <section className="mx-[20px]">
             <Header_h2 letter="Our Contacts" id="3" />

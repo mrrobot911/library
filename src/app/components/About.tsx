@@ -1,12 +1,10 @@
 'use client'
 import Image from "next/image";
-import { FunctionComponent, useState } from "react";
+import { useState } from "react";
 import Header_h2 from "./Header_h2";
 import CheckboxSlider from "./ChackboxSlider";
 
-interface AboutProps {
-}
-const About: FunctionComponent<AboutProps> = () => {
+const About = () => {
     const [radio, setRadio] = useState<number>(1);
     const inputLink = [1,2,3];
     const imageLink = [
