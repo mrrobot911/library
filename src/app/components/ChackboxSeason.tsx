@@ -2,16 +2,13 @@ import { Dispatch, SetStateAction } from "react";
 import bookBase from "../database/books.json";
 
 interface CheckboxProps {
-    setSeason:Dispatch<SetStateAction<keyof typeof bookBase>>
-    inputLink:string[]
-    season:string
+    setSeason:Dispatch<SetStateAction<book>>
+    inputLink:Array<book>
+    season:book
 }
- 
+type book = keyof typeof bookBase
 function ChackboxSeason({inputLink, season, setSeason}:CheckboxProps){
 
-    const radioBtn = (e:React.ChangeEvent<HTMLInputElement>) => { 
-        setSeason(e.target.value);
-    }
     return ( 
         <ul className="flex my-[40px] justify-start gap-[90px] ml-[20px]">
         {inputLink.map(item => {return(
@@ -20,7 +17,7 @@ function ChackboxSeason({inputLink, season, setSeason}:CheckboxProps){
                     type='radio'
                     id={`radio${item}`}
                     value={item}
-                    onChange={ (e) =>radioBtn(e) }
+                    onChange={ () =>setSeason(item) }
                     checked={ season === item }
                     style={{display:"none"}}
                 />

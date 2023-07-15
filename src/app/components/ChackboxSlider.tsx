@@ -3,7 +3,7 @@ import { FunctionComponent } from "react";
 interface CheckboxProps {
     radio: number
     setRadio:(action: number | ((prevState: number) => number)) => void
-    inputLink:number[]
+    inputLink:Array<number>
 }
  
 const CheckboxSlider: FunctionComponent<CheckboxProps> = ({radio, setRadio, inputLink}) => {

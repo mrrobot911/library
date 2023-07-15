@@ -1,16 +1,15 @@
 'use client'
-import { FunctionComponent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Header_h2 from "./Header_h2";
 import ChackboxSeason from "./ChackboxSeason";
 import BookCard from "./BookCard";
 import bookBase from "../database/books.json";
 
-interface FavoritesProps {
-}
- 
-const Favorites: FunctionComponent<FavoritesProps> = () => {
-    const inputLink = Object.keys(bookBase);
-    const [season, setSeason] = useState<keyof typeof bookBase>('Winter');
+type book = keyof typeof bookBase;
+const Favorites = () => {
+    // const inputLink:Array<book> = Object.keys(bookBase);
+    const inputLink:Array<book> = ["Winter", "Spring", "Summer", "Autumn"];
+    const [season, setSeason] = useState<book>('Winter');
     const [bookSet, setbookSet] = useState(bookBase[season]);
     useEffect(() => {
       setbookSet(bookBase[season])

@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 const Footer = () => {
     return ( 
         <section className="h-[250px] bg-black px-[20px] pt-[20px] text-white">
