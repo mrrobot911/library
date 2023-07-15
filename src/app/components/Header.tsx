@@ -18,7 +18,7 @@ const Header : FunctionComponent<header> = () => {
         <nav className="px-5">
             <div className="flex justify-between gap-[40px]">
                 <ul className="flex justify-between gap-[30px]">
-                    {arr.map(item => {return <li key={item}><a className="text-white text-[20px] leading-[50px]" href="#">{item}</a></li>})}
+                    {arr.map((item,i) => {return <li key={i}><a className="text-white text-[20px] leading-[50px]" href={`#${i}`}>{item}</a></li>})}
                 </ul>
                 <button><Image src="/images/icon_profile.png" alt="profile image" width={28} height={28}/></button>
             </div>

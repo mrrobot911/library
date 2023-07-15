@@ -12,7 +12,7 @@ const CheckboxSlider: FunctionComponent<CheckboxProps> = ({radio, setRadio, inpu
         setRadio(+e.target.value)  
     }
     return ( 
-        <ul className="flex my-[40px] gap-[10px] justify-center">
+        <ul className="flex my-[35px] justify-center">
         {inputLink.map(item => {return(
             <li key={item}>
                 <input
@@ -23,7 +23,7 @@ const CheckboxSlider: FunctionComponent<CheckboxProps> = ({radio, setRadio, inpu
                     checked={ radio === item }
                     style={{display:"none"}}
                 />
-                <label className="flex justify-center w-[16px]" 
+                <label className="flex justify-center w-[26px] h-[26px] items-center cursor-pointer" 
                 htmlFor={`radio${item}`} 
                 onClick={()=>setRadio(item)}>
                     <span 

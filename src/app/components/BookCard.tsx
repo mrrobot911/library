@@ -9,7 +9,7 @@ interface BookCardProps {
  
 function BookCard({name,author,text,image}: BookCardProps){
     return ( 
-        <article className="w-[550px] h-[555px] border-[1px] pl-[20px] py-[15px] border-black relative">
+        <article className="w-[550px] h-[555px] border-[1px] pl-[20px] py-[15px] border-black duration-500 relative">
             <h3 className="font-['Forum'] text-[20px] leading-[40px] capitalize">Staff Picks</h3>
             <hr className="h-[1px] w-[60px] bg-[#BB945F] border-0 mb-[20px]"/>
             <h4 className="text-[15px] font-bold tracking-[2px] leading-[40px] uppercase">{name}</h4>

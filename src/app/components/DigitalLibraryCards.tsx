@@ -4,7 +4,7 @@ import LibraryCard from "./LibraryCard";
 const DigitalLibraryCards = () => {
     return ( 
         <section className="mx-[20px] mb-[41px]">
-            <Header_h2 letter="Digital Library Cards"/>
+            <Header_h2 letter="Digital Library Cards" id="4"/>
             <LibraryCard />
         </section>
      );

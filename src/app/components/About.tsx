@@ -18,10 +18,10 @@ const About: FunctionComponent<AboutProps> = () => {
     ]
     return ( 
         <section>
-            <Header_h2 letter={"about"} />
+            <Header_h2 letter={"about"} id="0" />
             <p className="text-center mb-[20px]">The Brooklyn Library is a free workspace, a large number of books and a cozy coffee shop inside </p>
             <div className="flex mx-[20px] gap-[25px]">
-                {imageLink.slice(radio-1,radio+2).map(item => <Image key ={item} src={item} width={450} height={560} alt="library photo"/>)}
+                {imageLink.slice(radio-1,radio+2).map(item => <Image className="block duration-500" key ={item} src={item} width={450} height={560} alt="library photo"/>)}
             </div>
             <CheckboxSlider radio={radio} setRadio={setRadio} inputLink={inputLink}/>
         </section>

@@ -9,15 +9,17 @@ import Welcome from "./components/Welcome";
 
 export default function Home() {
   return (
-    <main className="container mx-auto max-w-[1440px]">
+    <div className="container mx-auto max-w-[1440px]">
       <Header />
-      <Welcome />
-      <About/>
-      <Favorites/>
-      <CoffeeShop />
-      <OurContacts />
-      <DigitalLibraryCards />
+      <main>
+        <Welcome />
+        <About/>
+        <Favorites/>
+        <CoffeeShop />
+        <OurContacts />
+        <DigitalLibraryCards />
+      </main>
       <Footer />
-    </main>
+    </div>
   )
 }
