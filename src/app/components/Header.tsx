@@ -1,5 +1,6 @@
 'use client'
 import { useState } from 'react';
+import Login from './Login';
 
 const arr = [
     "About",
@@ -10,8 +11,13 @@ const arr = [
 ]
  
 const Header = () => {
-    const [menuUser, setMenuUser] = useState(false);
-    const [auth, setauth] = useState(false);
+    const [ menuUser, setMenuUser ] = useState(false);
+    const [ auth, setauth ] = useState(false);
+    const [ login, setLogin ] = useState<boolean>(false);
+    const loginBtn = () => {
+        setLogin(!login);
+        setMenuUser(!menuUser)
+    }
     return ( 
     <header className="flex relative items-center justify-between max-w-[1440px] h-[90px] bg-black">
         <h1 className="text-white font-['Forum'] text-[30px] px-[20px] leading-[50px] tracking-[0.6px] font-normal">Brooklyn Public Library</h1>
@@ -28,9 +34,10 @@ const Header = () => {
         {menuUser && <div className='absolute bg-white w-[80px] h-[115px] right-[20px] top-[90px] z-10 text-center'>
             <p className='text-[15px] font-bold leading-[20px] mb-[5px]'>Profile</p>
             <hr className='h-[1px] w-[40px] mx-auto bg-[#BB945F] border-0 mb-[15px]'/>
-            <a className='block mb-[10px] cursor-pointer'>{auth ? 'My profile':'Log In'}</a>
+            <a className='block mb-[10px] cursor-pointer' onClick={()=>loginBtn()}>{auth ? 'My profile':'Log In'}</a>
             <a className='block cursor-pointer'>{auth ? 'Log Out':'My profile'}</a>
             </div>}
+        {login && <Login setLogin={setLogin} login={login}/>}
     </header> 
     );
 }
