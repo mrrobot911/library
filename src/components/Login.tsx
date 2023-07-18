@@ -21,9 +21,9 @@ const Login: FunctionComponent<LoginProps> = ({setLogin, login}) => {
     const [pwd, setPwd] = useState('');
     const [errMsg, setErrMsg] = useState('');
 
-    // useEffect(() => {
-    //     userRef.current.focus();
-    // }, [])
+    useEffect(() => {
+        userRef.current?.focus();
+    }, [])
 
     useEffect(() => {
         setErrMsg('');
@@ -64,12 +64,13 @@ const Login: FunctionComponent<LoginProps> = ({setLogin, login}) => {
                     setErrMsg('Login Failed');
                 }
             }
-            // errRef.current.focus();
+            errRef.current?.focus();
         }
     }
     return ( 
     <section className="w-[250px] h-[262px] top-[150px] right-[180px] z-10 bg-white absolute">
         <div className="relative">
+            <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
             <p className="font-['Forum'] text-[20px] leading-[20px] tracking-[0.4px] uppercase text-center my-[20px]">Login</p>
             <form className="w-[200px] h-[160px] mx-[20px]" onSubmit={handleSubmit}>
                 <label className="text-[15px] leading-[20px] tracking-[0.3px]" htmlFor="username">E-mail or readers card</label>
@@ -83,7 +84,6 @@ const Login: FunctionComponent<LoginProps> = ({setLogin, login}) => {
                     value={user}
                     required
                     />
-
                 <label htmlFor="password">Password</label>
                 <input
                     className="border-[#BB945F] border-[1px]"
