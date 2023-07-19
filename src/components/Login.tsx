@@ -1,8 +1,6 @@
 'use client'
 import Link from "next/link";
-import axios from "../utils/url";
 import { Dispatch, FunctionComponent, SetStateAction, useEffect, useRef, useState } from "react";
-import { AxiosError } from "axios";
 
 interface LoginProps {
     setLogin:Dispatch<SetStateAction<boolean>>
@@ -31,17 +29,23 @@ const Login: FunctionComponent<LoginProps> = ({setLogin, login}) => {
 
     const handleSubmit = async (e:React.ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
+        const fData = JSON.stringify({username:user, password: pwd});
 
-        const fData = new FormData()
-        fData.append("username", user)
-        fData.append("password", pwd)
-
-        try {
-            const response = await axios.post("/login", fData,
-            {
-            headers: { 'Content-Type': "multipart/form-data" },
-            });
-            console.log(response.data);
+        // try {
+            const response = await fetch('/api/login', {
+                body: fData,
+                headers: {
+                'Content-Type': 'application/json',
+                },
+                method: 'POST',
+            })
+            if(!response.ok) {
+                console.log(response.statusText);
+                // errRef.current?.focus();
+            }        
+            const data = await response.json();
+            console.log(response.status === 200);
+            console.log(data);
             
             // const role = response?.data?.role;
             // const id = response?.data.id;
@@ -52,20 +56,20 @@ const Login: FunctionComponent<LoginProps> = ({setLogin, login}) => {
             setPwd('');
             
             // navigate(from, { replace: true });
-        } catch ( err ) {
-            if (err instanceof AxiosError){
-                if (!err?.response) {
-                    setErrMsg('No Server Response');
-                } else if (err.response?.status === 403) {
-                    setErrMsg('Invalid credentials');
-                } else if (err.response?.status === 401) {
-                    setErrMsg('Unauthorized');
-                } else {
-                    setErrMsg('Login Failed');
-                }
-            }
-            errRef.current?.focus();
-        }
+        // } catch ( err ) {
+        //     console.log( err )
+        //     // if (err){
+        //     //     if (!err?.response) {
+        //     //         setErrMsg('No Server Response');
+        //     //     } else if (err.response?.status === 403) {
+        //     //         setErrMsg('Invalid credentials');
+        //     //     } else if (err.response?.status === 401) {
+        //     //         setErrMsg('Unauthorized');
+        //     //     } else {
+        //     //         setErrMsg('Login Failed');
+        //     //     }
+        //     // }
+        //     errRef.current?.focus();
     }
     return ( 
     <section className="w-[250px] h-[262px] top-[150px] right-[180px] z-10 bg-white absolute">
@@ -75,7 +79,7 @@ const Login: FunctionComponent<LoginProps> = ({setLogin, login}) => {
             <form className="w-[200px] h-[160px] mx-[20px]" onSubmit={handleSubmit}>
                 <label className="text-[15px] leading-[20px] tracking-[0.3px]" htmlFor="username">E-mail or readers card</label>
                 <input
-                    className="border-[#BB945F] border-[1px]"
+                    className="border-[#BB945F] border-[1px] w-[200px]"
                     type="text"
                     id="username"
                     ref={userRef}
@@ -86,7 +90,7 @@ const Login: FunctionComponent<LoginProps> = ({setLogin, login}) => {
                     />
                 <label htmlFor="password">Password</label>
                 <input
-                    className="border-[#BB945F] border-[1px]"
+                    className="border-[#BB945F] border-[1px] w-[200px]"
                     type="password"
                     id="password"
                     onChange={(e) => setPwd(e.target.value)}
