@@ -28,7 +28,7 @@ const Login: FunctionComponent<LoginProps> = ({setLogin, login, setRegistr, regi
 
     const handleSubmit = async (e:React.ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const fData = JSON.stringify({username:user, password: pwd});
+        const fData = JSON.stringify({email:user, password: pwd});
 
         const response = await fetch('/api/login', {
             body: fData,
@@ -43,10 +43,10 @@ const Login: FunctionComponent<LoginProps> = ({setLogin, login, setRegistr, regi
             errRef.current?.focus();
         } else {
             const data = await response.json();
-            console.log(response.status === 200);
             console.log(data);
             setUser('');
             setPwd('');
+            setLogin(!login);
         }    
     }
     return ( 

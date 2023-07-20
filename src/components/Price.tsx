@@ -3,7 +3,6 @@ interface PriceProps {
     item: string
     alighn: boolean
 }
- 
 function Price({ data, item, alighn}:PriceProps){
     return (
         <div className={alighn ?"flex flex-col items-start":"flex flex-col items-end"}>

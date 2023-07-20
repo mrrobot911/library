@@ -1,8 +1,7 @@
-'use client'
-import { useState } from "react";
- 
-const LibraryCard = () => {
-    const [auth, setAuth] = useState(false)
+interface card {
+    auth: boolean
+}
+const LibraryCard = ({auth}:card) => {
     return (
         <div className="flex items-between justify-between">
             <div className="flex flex-col w-[600px] h-[453px] items-center">

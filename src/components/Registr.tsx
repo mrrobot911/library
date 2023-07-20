@@ -10,6 +10,7 @@ interface LoginProps {
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 
 const Registr: FunctionComponent<LoginProps> = ({setRegistr, registr, setLogin, login}) => {
     const userRef = useRef<HTMLInputElement>(null);
@@ -47,17 +48,21 @@ const Registr: FunctionComponent<LoginProps> = ({setRegistr, registr, setLogin, 
     }, [userLast])
 
     useEffect(() => {
+        setValidMail(EMAIL_REGEX.test(mail));
+    }, [mail])
+
+    useEffect(() => {
         setValidPwd(PWD_REGEX.test(pwd));
     }, [pwd])
 
     useEffect(() => {
         setErrMsg('');
-    }, [userFirst, userLast, pwd])
+    }, [userFirst, userLast, pwd, mail])
     
         const handleSubmit = async (e:React.ChangeEvent<HTMLFormElement>) => {
             e.preventDefault();
 
-        const fData = JSON.stringify({firstname:userFirst, lastname: userLast, password: pwd});
+        const fData = JSON.stringify({firstname:userFirst, lastname: userLast, email:mail, password: pwd});
 
         const response = await fetch('/api/register', {
             body: fData,
@@ -72,10 +77,10 @@ const Registr: FunctionComponent<LoginProps> = ({setRegistr, registr, setLogin, 
             errRef.current?.focus();
         } else {
             const data = await response.json();
-            console.log(response.status === 200);
             console.log(data);
             setUserFirst('');
             setUserLast('');
+            setMail('');
             setPwd('');
         }  
     }
@@ -84,7 +89,12 @@ const Registr: FunctionComponent<LoginProps> = ({setRegistr, registr, setLogin, 
         <p ref={errRef} className={errMsg ? "text-red-500" : "absolute left-[-9999px]"} aria-live="assertive">{errMsg}</p>
         <h1 className="font-['Forum'] text-[20px] leading-[20px] tracking-[0.4px] uppercase text-center m-[20px]">Register</h1>
         <form className="w-[200px] mx-[20px] relative" onSubmit={handleSubmit}>
-            <label className="text-[15px] leading-[20px] tracking-[0.3px]" htmlFor="firstName">First name</label>
+            <label className="text-[15px] leading-[20px] tracking-[0.3px]" 
+            htmlFor="firstName">First name &nbsp;
+            {(userFirst || userFirstFocus) && (validFirstName
+            ? <span className="text-green-600">✔</span> 
+            : <span className="text-red-600">✘</span>)}
+            </label>
             <input
                 className="border-[#BB945F] border-[1px] w-[200px]"
                 type="text"
@@ -104,7 +114,12 @@ const Registr: FunctionComponent<LoginProps> = ({setRegistr, registr, setLogin, 
                 Должен начинаться с буквы.<br />
                 Может содержать английские буквы, цифры, тире и нижнее подчеркивание.
             </p>
-            <label className="text-[15px] leading-[20px] tracking-[0.3px]" htmlFor="lastName">Last name</label>
+            <label className="text-[15px] leading-[20px] tracking-[0.3px]" 
+            htmlFor="lastName">Last name &nbsp;
+            {(userLast || userLastFocus) && (validLastName
+            ? <span className="text-green-600">✔</span> 
+            : <span className="text-red-600">✘</span>)}
+            </label>
             <input
                 className="border-[#BB945F] border-[1px] w-[200px]"
                 type="text"
@@ -123,7 +138,12 @@ const Registr: FunctionComponent<LoginProps> = ({setRegistr, registr, setLogin, 
                 Должен начинаться с буквы.<br />
                 Может содержать английские буквы, цифры, тире и нижнее подчеркивание.
             </p>
-            <label className="text-[15px] leading-[20px] tracking-[0.3px]" htmlFor="email">E-mail</label>
+            <label className="text-[15px] leading-[20px] tracking-[0.3px]" 
+            htmlFor="email">E-mail &nbsp;
+            {(mail || mailFocus) && (validMail
+            ? <span className="text-green-600">✔</span> 
+            : <span className="text-red-600">✘</span>)}
+            </label>
             <input
                 className="border-[#BB945F] border-[1px] w-[200px]"
                 type="email"
@@ -142,7 +162,12 @@ const Registr: FunctionComponent<LoginProps> = ({setRegistr, registr, setLogin, 
                 Включает следующие символы: <span aria-label="exclamation mark">@</span> <span aria-label="dot">.</span>
             </p>
 
-            <label className="text-[15px] leading-[20px] tracking-[0.3px]" htmlFor="password">Password</label>
+            <label className="text-[15px] leading-[20px] tracking-[0.3px]" 
+            htmlFor="password">Password &nbsp;
+            {(pwd || pwdFocus) && (validFirstName
+            ? <span className="text-green-600">✔</span> 
+            : <span className="text-red-600">✘</span>)}
+            </label>
             <input
                 className="border-[#BB945F] border-[1px] w-[200px]"
                 type="password"
@@ -161,8 +186,8 @@ const Registr: FunctionComponent<LoginProps> = ({setRegistr, registr, setLogin, 
                 Включает следующие символы: <span aria-label="exclamation mark">!</span> <span aria-label="exclamation mark">@</span> <span aria-label="hashtag">#</span> <span aria-label="dollar sign">$</span> <span aria-label="percent">%</span>
             </p>
             <button className="font-bold text-[10px] tracking-[1px] px-[20px] py-[9px] border-black border-[1px] mt-[20px]" 
-            disabled={!validFirstName || !validLastName || !validPwd || validMail ? true : false}
-            >Завершить регистрацию</button>
+            disabled={!validFirstName || !validLastName || !validPwd || !validMail ? true : false}
+            >Sign Up</button>
         </form>
         <div className="flex gap-[10px] ml-[25px] mt-[10px]">
                 <p className="text-[10px] tracking-[1px]">Already have an account?</p>
