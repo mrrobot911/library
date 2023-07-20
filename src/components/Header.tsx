@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react';
 import Login from './Login';
+import Registr from './Registr';
 
 const arr = [
     "About",
@@ -14,9 +15,14 @@ const Header = () => {
     const [ menuUser, setMenuUser ] = useState(false);
     const [ auth, setauth ] = useState(false);
     const [ login, setLogin ] = useState<boolean>(false);
+    const [ registr, setRegistr ] = useState<boolean>(false);
     const loginBtn = () => {
         setLogin(!login);
-        setMenuUser(!menuUser)
+        setMenuUser(!menuUser);
+    }
+    const registrBtn = () => {
+        setRegistr(!registr);
+        setMenuUser(!menuUser);
     }
     return ( 
     <header className="flex relative items-center justify-between max-w-[1440px] h-[90px] bg-black">
@@ -35,9 +41,10 @@ const Header = () => {
             <p className='text-[15px] font-bold leading-[20px] mb-[5px]'>Profile</p>
             <hr className='h-[1px] w-[40px] mx-auto bg-[#BB945F] border-0 mb-[15px]'/>
             <a className='block mb-[10px] cursor-pointer' onClick={()=>loginBtn()}>{auth ? 'My profile':'Log In'}</a>
-            <a className='block cursor-pointer'>{auth ? 'Log Out':'My profile'}</a>
+            <a className='block cursor-pointer' onClick={()=>registrBtn()}>{auth ? 'Log Out':'Register'}</a>
             </div>}
-        {login && <Login setLogin={setLogin} login={login}/>}
+        {login && <Login setLogin={setLogin} login={login} setRegistr={setRegistr} registr={registr}/>}
+        {registr && <Registr setRegistr={setRegistr} registr={registr} setLogin={setLogin} login={login}/>}
     </header> 
     );
 }
