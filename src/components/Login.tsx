@@ -1,5 +1,6 @@
 'use client'
-import Link from "next/link";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { setAuth, setBook, setFirstName, setId, setLastName } from "@/store/userSlice";
 import { Dispatch, FunctionComponent, SetStateAction, useEffect, useRef, useState } from "react";
 
 interface LoginProps {
@@ -8,16 +9,16 @@ interface LoginProps {
     setRegistr:Dispatch<SetStateAction<boolean>>
     registr:boolean
 }
-
 const Login: FunctionComponent<LoginProps> = ({setLogin, login, setRegistr, registr}) => {
 
     const userRef = useRef<HTMLInputElement>(null);
     const errRef = useRef<HTMLInputElement>(null);
-
+    
     const [user, setUser] = useState('');
     const [pwd, setPwd] = useState('');
     const [errMsg, setErrMsg] = useState('');
-
+    
+    const dispatch = useAppDispatch();
     useEffect(() => {
         userRef.current?.focus();
     }, [])
@@ -30,7 +31,7 @@ const Login: FunctionComponent<LoginProps> = ({setLogin, login, setRegistr, regi
         e.preventDefault();
         const fData = JSON.stringify({email:user, password: pwd});
 
-        const response = await fetch('/api/login', {
+        const response = await fetch('/api/v1/login', {
             body: fData,
             headers: {
             'Content-Type': 'application/json',
@@ -43,12 +44,19 @@ const Login: FunctionComponent<LoginProps> = ({setLogin, login, setRegistr, regi
             errRef.current?.focus();
         } else {
             const data = await response.json();
-            console.log(data);
+            
+            dispatch(setFirstName(data.firstname));
+            dispatch(setLastName(data.lastname));
+            dispatch(setId(data.id));
+            dispatch(setBook(data.books));
+            dispatch(setAuth(true));
+                        
             setUser('');
             setPwd('');
             setLogin(!login);
-        }    
+        }
     }
+    
     return ( 
     <section className="w-[250px] h-[262px] top-[150px] right-[180px] z-10 bg-white absolute">
         <div className="relative">
@@ -88,8 +96,8 @@ const Login: FunctionComponent<LoginProps> = ({setLogin, login, setRegistr, regi
             disabled={!!errMsg}
             >
                 <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M2 16.8507L17 2.00003" stroke="#0C0C0E" stroke-width="3"/>
-                <path d="M2 2.14926L17 17" stroke="#0C0C0E" stroke-width="3"/>
+                <path d="M2 16.8507L17 2.00003" stroke="#0C0C0E" strokeWidth="3"/>
+                <path d="M2 2.14926L17 17" stroke="#0C0C0E" strokeWidth="3"/>
                 </svg>
             </button >
         </div>

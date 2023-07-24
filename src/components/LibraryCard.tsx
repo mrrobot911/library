@@ -1,7 +1,8 @@
-interface card {
-    auth: boolean
-}
-const LibraryCard = ({auth}:card) => {
+'use client'
+import { useAppSelector } from "@/store/hooks";
+
+const LibraryCard = () => {
+    const auth = useAppSelector((state) => state.user.auth);
     return (
         <div className="flex items-between justify-between">
             <div className="flex flex-col w-[600px] h-[453px] items-center">

@@ -1,6 +1,5 @@
 'use client'
 import Header_h2 from "./Header_h2";
-import { YMaps, Map } from '@pbe/react-yandex-maps';
 
 const OurContacts = () => {
     return (
@@ -17,11 +16,7 @@ const OurContacts = () => {
                     <p className="mb-[20px] font-bold">Senior Staff</p>
                     <p>Library Director: <a href="mailto:AmandaHirst@gmail.com"><b>Amanda Hirst</b></a></p>
                 </div>
-                <YMaps>
-                    <div>
-                        <Map width="696px" height="414px" defaultState={{ center: [55.75, 37.57], zoom: 9 }} />
-                    </div>
-                </YMaps>
+                <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A3537f9a3df4b114de504b143230a851384b02fe417e85432e1a96f28b6c9e1a2&amp;source=constructor" width="696" height="414"></iframe>
             </div>
         </section>
      );

@@ -8,6 +8,7 @@ const UserSchema = new mongoose.Schema({
     },
     email: {
       type: String,
+      unique: true,
       required: [true, 'Please provide name'],
       minlength: 3,
       maxlength: 50,
@@ -22,6 +23,10 @@ const UserSchema = new mongoose.Schema({
       enum: ['admin', 'user'],
       default: 'user',
     },
+    books: {
+      type: Array,
+      default: [],
+    }
   });
 
   const users = mongoose.models.users || mongoose.model('users', UserSchema);

@@ -10,61 +10,51 @@ interface LoginProps {
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
-const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+const EMAIL_REGEX = /(.+)@(.+){2,}\.(.+){2,}/;
 
 const Registr: FunctionComponent<LoginProps> = ({setRegistr, registr, setLogin, login}) => {
     const userRef = useRef<HTMLInputElement>(null);
     const errRef = useRef<HTMLInputElement>(null);
 
-    const [ userFirst, setUserFirst ] = useState('');
-    const [ validFirstName, setValidFirstName ] = useState(false);
-    const [ userFirstFocus, setUserFirstFocus ] = useState(false);
-
-    const [ userLast, setUserLast ] = useState('');
-    const [ validLastName, setValidLastName ] = useState(false);
-    const [ userLastFocus, setUserLastFocus ] = useState(false);
-
-    const [ mail, setMail ] = useState('');
-    const [ validMail, setValidMail ] = useState(false);
-    const [ mailFocus, setMailFocus ] = useState(false);
-
-    const [ pwd, setPwd ] = useState('');
-    const [ validPwd, setValidPwd ] = useState(false);
-    const [ pwdFocus, setPwdFocus ] = useState(false);
-
+    const [ userData, setUserData ] = useState({userFirst:'', userLast:'', mail:'', pwd:''});
+    const [ validData, setValidData ] = useState({userFirst:false, userLast:false, mail:false, pwd:false});
+    const [ userFocus, setUserFocus ] = useState({userFirst:false, userLast:false, mail:false, pwd:false});
     const [ errMsg, setErrMsg ] = useState('');
-    const [ success, setSuccess ] = useState(false);
 
     useEffect(() => {
         userRef.current?.focus();
     }, [])
 
     useEffect(() => {
-        setValidFirstName(USER_REGEX.test(userFirst));
-    }, [userFirst])
+        setValidData({...validData, userFirst:USER_REGEX.test(userData.userFirst)});
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [userData.userFirst])
 
     useEffect(() => {
-        setValidLastName(USER_REGEX.test(userLast));
-    }, [userLast])
+        setValidData({...validData, userLast:USER_REGEX.test(userData.userLast)});
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [userData.userLast])
 
     useEffect(() => {
-        setValidMail(EMAIL_REGEX.test(mail));
-    }, [mail])
+        setValidData({...validData, mail:EMAIL_REGEX.test(userData.mail)});
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [userData.mail])
 
     useEffect(() => {
-        setValidPwd(PWD_REGEX.test(pwd));
-    }, [pwd])
+        setValidData({...validData, pwd:PWD_REGEX.test(userData.pwd)});
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [userData.pwd])
 
     useEffect(() => {
         setErrMsg('');
-    }, [userFirst, userLast, pwd, mail])
+    }, [userData])
     
         const handleSubmit = async (e:React.ChangeEvent<HTMLFormElement>) => {
             e.preventDefault();
 
-        const fData = JSON.stringify({firstname:userFirst, lastname: userLast, email:mail, password: pwd});
+        const fData = JSON.stringify({firstname:userData.userFirst, lastname: userData.userLast, email:userData.mail, password: userData.pwd});
 
-        const response = await fetch('/api/register', {
+        const response = await fetch('/api/v1/register', {
             body: fData,
             headers: {
             'Content-Type': 'application/json',
@@ -73,25 +63,22 @@ const Registr: FunctionComponent<LoginProps> = ({setRegistr, registr, setLogin, 
         })
         if(!response.ok) {
             const err = await response.json();
-            setErrMsg(err.massage);
+            setErrMsg(err.message);
+            setValidData({...validData, mail:false});
             errRef.current?.focus();
         } else {
             const data = await response.json();
-            console.log(data);
-            setUserFirst('');
-            setUserLast('');
-            setMail('');
-            setPwd('');
+            setUserData({userFirst:'',userLast:'',mail:'',pwd:''});
+            setRegistr(false);
         }  
     }
     return ( 
         <section className=" top-[150px] right-[180px] z-10 bg-white absolute w-[250px] h-[382px]">
-        <p ref={errRef} className={errMsg ? "text-red-500" : "absolute left-[-9999px]"} aria-live="assertive">{errMsg}</p>
         <h1 className="font-['Forum'] text-[20px] leading-[20px] tracking-[0.4px] uppercase text-center m-[20px]">Register</h1>
         <form className="w-[200px] mx-[20px] relative" onSubmit={handleSubmit}>
             <label className="text-[15px] leading-[20px] tracking-[0.3px]" 
             htmlFor="firstName">First name &nbsp;
-            {(userFirst || userFirstFocus) && (validFirstName
+            {(userData.userFirst || userFocus.userFirst) && (validData.userFirst
             ? <span className="text-green-600">✔</span> 
             : <span className="text-red-600">✘</span>)}
             </label>
@@ -101,22 +88,22 @@ const Registr: FunctionComponent<LoginProps> = ({setRegistr, registr, setLogin, 
                 id="firstName"
                 ref={userRef}
                 autoComplete="off"
-                onChange={(e) => setUserFirst(e.target.value)}
-                value={userFirst}
+                onChange={(e) => setUserData({...userData,userFirst:e.target.value})}
+                value={userData.userFirst}
                 required
-                aria-invalid={validFirstName ? "false" : "true"}
+                aria-invalid={validData.userFirst ? "false" : "true"}
                 aria-describedby="uidnote"
-                onFocus={() => setUserFirstFocus(true)}
-                onBlur={() => setUserFirstFocus(false)}
+                onFocus={() => setUserFocus({...userFocus, userFirst:true})}
+                onBlur={() => setUserFocus({...userFocus, userFirst:false})}
                 />
-            <p id="uidnote" className={userFirstFocus && userFirst && !validFirstName ? "text-[0.75rem] rounded-[0.5rem] bg-black text-white absolute left-[210px] top-[0px] p-[0.25rem]" : "absolute left-[-9999px]"}>
+            <p id="uidnote" className={userFocus.userFirst && userData.userFirst && !validData.userFirst ? "text-[0.75rem] rounded-[0.5rem] bg-black text-white absolute left-[210px] top-[0px] p-[0.25rem]" : "absolute left-[-9999px]"}>
                 От 4 до 24 символов.<br />
                 Должен начинаться с буквы.<br />
                 Может содержать английские буквы, цифры, тире и нижнее подчеркивание.
             </p>
             <label className="text-[15px] leading-[20px] tracking-[0.3px]" 
             htmlFor="lastName">Last name &nbsp;
-            {(userLast || userLastFocus) && (validLastName
+            {(userData.userLast || userFocus.userLast) && (validData.userLast
             ? <span className="text-green-600">✔</span> 
             : <span className="text-red-600">✘</span>)}
             </label>
@@ -125,22 +112,22 @@ const Registr: FunctionComponent<LoginProps> = ({setRegistr, registr, setLogin, 
                 type="text"
                 id="lastName"
                 autoComplete="off"
-                onChange={(e) => setUserLast(e.target.value)}
-                value={userLast}
+                onChange={(e) => setUserData({...userData, userLast:e.target.value})}
+                value={userData.userLast}
                 required
-                aria-invalid={validLastName ? "false" : "true"}
+                aria-invalid={validData.userLast ? "false" : "true"}
                 aria-describedby="uidnote2"
-                onFocus={() => setUserLastFocus(true)}
-                onBlur={() => setUserLastFocus(false)}
+                onFocus={() => setUserFocus({...userFocus, userLast:true})}
+                onBlur={() => setUserFocus({...userFocus, userLast:false})}
                 />
-            <p id="uidnote2" className={userLastFocus && userLast && !validLastName ? "text-[0.75rem] rounded-[0.5rem] bg-black text-white absolute left-[210px] top-[20px] p-[0.25rem]" : "absolute left-[-9999px]"}>
+            <p id="uidnote2" className={userFocus.userLast && userData.userLast && !validData.userLast ? "text-[0.75rem] rounded-[0.5rem] bg-black text-white absolute left-[210px] top-[20px] p-[0.25rem]" : "absolute left-[-9999px]"}>
                 От 4 до 24 символов.<br />
                 Должен начинаться с буквы.<br />
                 Может содержать английские буквы, цифры, тире и нижнее подчеркивание.
             </p>
             <label className="text-[15px] leading-[20px] tracking-[0.3px]" 
             htmlFor="email">E-mail &nbsp;
-            {(mail || mailFocus) && (validMail
+            {(userData.mail || userFocus.mail) && (validData.mail
             ? <span className="text-green-600">✔</span> 
             : <span className="text-red-600">✘</span>)}
             </label>
@@ -148,23 +135,23 @@ const Registr: FunctionComponent<LoginProps> = ({setRegistr, registr, setLogin, 
                 className="border-[#BB945F] border-[1px] w-[200px]"
                 type="email"
                 id="email"
-                onChange={(e) => setMail(e.target.value)}
-                value={mail}
+                ref={errRef}
+                onChange={(e) => setUserData({...userData, mail:e.target.value})}
+                value={userData.mail}
                 required
-                aria-invalid={validMail ? "false" : "true"}
+                aria-invalid={validData.mail ? "false" : "true"}
                 aria-describedby="mailnote"
-                onFocus={() => setMailFocus(true)}
-                onBlur={() => setMailFocus(false)}
+                onFocus={() => setUserFocus({...userFocus, mail:true})}
+                onBlur={() => setUserFocus({...userFocus, mail:false})}
                 />
-            <p id="mailnote" className={mailFocus && !validMail ? "text-[0.75rem] rounded-[0.5rem] bg-black text-white absolute left-[210px] top-[40px] p-[0.25rem]" : "absolute left-[-9999px]"}>
-                От 8 до 24 символов.<br />
-                Должен содержать строчные и заглавные английские буквы, цифры и спец символы.<br />
+            <p id="mailnote" className={userFocus.mail && !validData.mail ? "text-[0.75rem] rounded-[0.5rem] bg-black text-white absolute left-[210px] top-[40px] p-[0.25rem]" : "absolute left-[-9999px]"}>
+                Должен содержать строчные и заглавные английские буквы.<br />
                 Включает следующие символы: <span aria-label="exclamation mark">@</span> <span aria-label="dot">.</span>
             </p>
 
             <label className="text-[15px] leading-[20px] tracking-[0.3px]" 
             htmlFor="password">Password &nbsp;
-            {(pwd || pwdFocus) && (validFirstName
+            {(userData.pwd || userFocus.pwd) && (validData.pwd
             ? <span className="text-green-600">✔</span> 
             : <span className="text-red-600">✘</span>)}
             </label>
@@ -172,34 +159,34 @@ const Registr: FunctionComponent<LoginProps> = ({setRegistr, registr, setLogin, 
                 className="border-[#BB945F] border-[1px] w-[200px]"
                 type="password"
                 id="password"
-                onChange={(e) => setPwd(e.target.value)}
-                value={pwd}
+                onChange={(e) => setUserData({...userData, pwd:e.target.value})}
+                value={userData.pwd}
                 required
-                aria-invalid={validPwd ? "false" : "true"}
+                aria-invalid={validData.pwd ? "false" : "true"}
                 aria-describedby="pwdnote"
-                onFocus={() => setPwdFocus(true)}
-                onBlur={() => setPwdFocus(false)}
+                onFocus={() => setUserFocus({...userFocus, pwd:true})}
+                onBlur={() => setUserFocus({...userFocus, pwd:false})}
                 />
-            <p id="pwdnote" className={pwdFocus && !validPwd ? "text-[0.75rem] rounded-[0.5rem] bg-black text-white absolute left-[210px] top-[60px] p-[0.25rem]" : "absolute left-[-9999px]"}>
+            <p id="pwdnote" className={userFocus.pwd && !validData.pwd ? "text-[0.75rem] rounded-[0.5rem] bg-black text-white absolute left-[210px] top-[60px] p-[0.25rem]" : "absolute left-[-9999px]"}>
                 От 8 до 24 символов.<br />
                 Должен содержать строчные и заглавные английские буквы, цифры и спец символы.<br />
                 Включает следующие символы: <span aria-label="exclamation mark">!</span> <span aria-label="exclamation mark">@</span> <span aria-label="hashtag">#</span> <span aria-label="dollar sign">$</span> <span aria-label="percent">%</span>
             </p>
             <button className="font-bold text-[10px] tracking-[1px] px-[20px] py-[9px] border-black border-[1px] mt-[20px]" 
-            disabled={!validFirstName || !validLastName || !validPwd || !validMail ? true : false}
+            disabled={!validData.userFirst || !validData.userLast || !validData.pwd || !validData.mail ? true : false}
             >Sign Up</button>
         </form>
         <div className="flex gap-[10px] ml-[25px] mt-[10px]">
                 <p className="text-[10px] tracking-[1px]">Already have an account?</p>
                 <p className="text-[10px] tracking-[1px] cursor-pointer" onClick={()=>{setRegistr(!registr);setLogin(!login)}}><b>Login</b></p>
-            </div>
+        </div>
+        {errMsg && <p className="mx-[20px] text-[12px] text-red-600">{errMsg}</p>}
         <button className="absolute top-[15px] right-[15px]" 
             onClick={()=>setRegistr(!registr)}
-            disabled={!!errMsg}
             >
             <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M2 16.8507L17 2.00003" stroke="#0C0C0E" stroke-width="3"/>
-            <path d="M2 2.14926L17 17" stroke="#0C0C0E" stroke-width="3"/>
+            <path d="M2 16.8507L17 2.00003" stroke="#0C0C0E" strokeWidth="3"/>
+            <path d="M2 2.14926L17 17" stroke="#0C0C0E" strokeWidth="3"/>
             </svg>
         </button >
     </section>
