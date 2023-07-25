@@ -1,6 +1,7 @@
 'use client'
 import axios from "axios";
 import { Dispatch, FunctionComponent, SetStateAction, useEffect, useRef, useState } from "react";
+import MyInput from "./MyInput";
 
 interface LoginProps {
     setRegistr:Dispatch<SetStateAction<boolean>>
@@ -82,102 +83,8 @@ const Registr: FunctionComponent<LoginProps> = ({setRegistr, registr, setLogin, 
         <section className=" top-[150px] right-[180px] z-10 bg-white absolute w-[250px] h-[382px]">
         <h1 className="font-['Forum'] text-[20px] leading-[20px] tracking-[0.4px] uppercase text-center m-[20px]">Register</h1>
         <form className="w-[200px] mx-[20px] relative" onSubmit={handleSubmit}>
-            <label className="text-[15px] leading-[20px] tracking-[0.3px]" 
-            htmlFor="firstName">First name &nbsp;
-            {(userData.userFirst || userFocus.userFirst) && (validData.userFirst
-            ? <span className="text-green-600">✔</span> 
-            : <span className="text-red-600">✘</span>)}
-            </label>
-            <input
-                className="border-[#BB945F] border-[1px] w-[200px]"
-                type="text"
-                id="firstName"
-                ref={userRef}
-                autoComplete="off"
-                onChange={(e) => setUserData({...userData,userFirst:e.target.value})}
-                value={userData.userFirst}
-                required
-                aria-invalid={validData.userFirst ? "false" : "true"}
-                aria-describedby="uidnote"
-                onFocus={() => setUserFocus({...userFocus, userFirst:true})}
-                onBlur={() => setUserFocus({...userFocus, userFirst:false})}
-                />
-            <p id="uidnote" className={userFocus.userFirst && userData.userFirst && !validData.userFirst ? "text-[0.75rem] rounded-[0.5rem] bg-black text-white absolute left-[210px] top-[0px] p-[0.25rem]" : "absolute left-[-9999px]"}>
-                От 4 до 24 символов.<br />
-                Должен начинаться с буквы.<br />
-                Может содержать английские буквы, цифры, тире и нижнее подчеркивание.
-            </p>
-            <label className="text-[15px] leading-[20px] tracking-[0.3px]" 
-            htmlFor="lastName">Last name &nbsp;
-            {(userData.userLast || userFocus.userLast) && (validData.userLast
-            ? <span className="text-green-600">✔</span> 
-            : <span className="text-red-600">✘</span>)}
-            </label>
-            <input
-                className="border-[#BB945F] border-[1px] w-[200px]"
-                type="text"
-                id="lastName"
-                autoComplete="off"
-                onChange={(e) => setUserData({...userData, userLast:e.target.value})}
-                value={userData.userLast}
-                required
-                aria-invalid={validData.userLast ? "false" : "true"}
-                aria-describedby="uidnote2"
-                onFocus={() => setUserFocus({...userFocus, userLast:true})}
-                onBlur={() => setUserFocus({...userFocus, userLast:false})}
-                />
-            <p id="uidnote2" className={userFocus.userLast && userData.userLast && !validData.userLast ? "text-[0.75rem] rounded-[0.5rem] bg-black text-white absolute left-[210px] top-[20px] p-[0.25rem]" : "absolute left-[-9999px]"}>
-                От 4 до 24 символов.<br />
-                Должен начинаться с буквы.<br />
-                Может содержать английские буквы, цифры, тире и нижнее подчеркивание.
-            </p>
-            <label className="text-[15px] leading-[20px] tracking-[0.3px]" 
-            htmlFor="email">E-mail &nbsp;
-            {(userData.mail || userFocus.mail) && (validData.mail
-            ? <span className="text-green-600">✔</span> 
-            : <span className="text-red-600">✘</span>)}
-            </label>
-            <input
-                className="border-[#BB945F] border-[1px] w-[200px]"
-                type="email"
-                id="email"
-                ref={errRef}
-                onChange={(e) => setUserData({...userData, mail:e.target.value})}
-                value={userData.mail}
-                required
-                aria-invalid={validData.mail ? "false" : "true"}
-                aria-describedby="mailnote"
-                onFocus={() => setUserFocus({...userFocus, mail:true})}
-                onBlur={() => setUserFocus({...userFocus, mail:false})}
-                />
-            <p id="mailnote" className={userFocus.mail && !validData.mail ? "text-[0.75rem] rounded-[0.5rem] bg-black text-white absolute left-[210px] top-[40px] p-[0.25rem]" : "absolute left-[-9999px]"}>
-                Должен содержать строчные и заглавные английские буквы.<br />
-                Включает следующие символы: <span aria-label="exclamation mark">@</span> <span aria-label="dot">.</span>
-            </p>
-
-            <label className="text-[15px] leading-[20px] tracking-[0.3px]" 
-            htmlFor="password">Password &nbsp;
-            {(userData.pwd || userFocus.pwd) && (validData.pwd
-            ? <span className="text-green-600">✔</span> 
-            : <span className="text-red-600">✘</span>)}
-            </label>
-            <input
-                className="border-[#BB945F] border-[1px] w-[200px]"
-                type="password"
-                id="password"
-                onChange={(e) => setUserData({...userData, pwd:e.target.value})}
-                value={userData.pwd}
-                required
-                aria-invalid={validData.pwd ? "false" : "true"}
-                aria-describedby="pwdnote"
-                onFocus={() => setUserFocus({...userFocus, pwd:true})}
-                onBlur={() => setUserFocus({...userFocus, pwd:false})}
-                />
-            <p id="pwdnote" className={userFocus.pwd && !validData.pwd ? "text-[0.75rem] rounded-[0.5rem] bg-black text-white absolute left-[210px] top-[60px] p-[0.25rem]" : "absolute left-[-9999px]"}>
-                От 8 до 24 символов.<br />
-                Должен содержать строчные и заглавные английские буквы, цифры и спец символы.<br />
-                Включает следующие символы: <span aria-label="exclamation mark">!</span> <span aria-label="exclamation mark">@</span> <span aria-label="hashtag">#</span> <span aria-label="dollar sign">$</span> <span aria-label="percent">%</span>
-            </p>
+            {Object.keys(userData).map(item =><MyInput key={item}item={item} data={userData} setData={setUserData} validItem={validData} setValidItem={setValidData} focus={userFocus} setFocus={setUserFocus}/>
+            )}
             <button className="font-bold text-[10px] tracking-[1px] px-[20px] py-[9px] border-black border-[1px] mt-[20px]" 
             disabled={!validData.userFirst || !validData.userLast || !validData.pwd || !validData.mail ? true : false}
             >Sign Up</button>
