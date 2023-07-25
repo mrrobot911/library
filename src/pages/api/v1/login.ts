@@ -10,11 +10,13 @@ export default async function handler(
 ) {
   try{
     await dbConnect();
-
-    const user = await users.findOne({email:req.body.email}).select("password lastname email firstname books");    
-    if (user && await bcrypt.compare(req.body.password, user.password)){   
+    const data = req.body.data;
+    
+    const user = await users.findOne({email:data.email}).select("password lastname email firstname books");    
+    if (user && await bcrypt.compare(data.password, user.password)){   
       const userData = user.toObject({ getters: true });    
       const { password, _id, ...sendUserData } = userData;
+      
       const tokenData = {
         id: sendUserData.id,
         email: sendUserData.email

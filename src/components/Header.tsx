@@ -2,7 +2,8 @@
 import { useState } from 'react';
 import Login from './Login';
 import Registr from './Registr';
-import { useAppSelector } from "@/store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { setAuth, setBook, setFirstName, setId, setLastName } from "@/store/userSlice";
 import UserPanel from './UserPanel';
 
 const arr = [
@@ -19,6 +20,7 @@ const Header = () => {
     const [ login, setLogin ] = useState<boolean>(false);
     const [ registr, setRegistr ] = useState<boolean>(false);
     const [ user, setUser ] = useState<boolean>(false);
+    const dispatch = useAppDispatch();
     const loginBtn = () => {
         setLogin(!login);
         setMenuUser(!menuUser);
@@ -30,6 +32,13 @@ const Header = () => {
     const profileBtn = () => {
         setUser(!user)
         setMenuUser(!menuUser);
+    }
+    function resetUserData (){
+        dispatch(setAuth(false));
+        dispatch(setBook([]));
+        dispatch(setFirstName(''));
+        dispatch(setLastName(''));
+        dispatch(setId(''));
     }
     return ( 
     <header className="flex relative items-center justify-between max-w-[1440px] h-[90px] bg-black">
@@ -48,7 +57,7 @@ const Header = () => {
             <p className='text-[15px] font-bold leading-[20px] mb-[5px]'>Profile</p>
             <hr className='h-[1px] w-[40px] mx-auto bg-[#BB945F] border-0 mb-[15px]'/>
             {auth ? <a className='block mb-[10px] cursor-pointer' onClick={()=>profileBtn()}>My profile</a> : <a className='block mb-[10px] cursor-pointer' onClick={()=>loginBtn()}>Log In</a>}
-            {auth ? <a className='block cursor-pointer' >Log Out</a> : <a className='block cursor-pointer' onClick={()=>registrBtn()}>Register</a>}
+            {auth ? <a className='block cursor-pointer' onClick={()=>resetUserData()}>Log Out</a> : <a className='block cursor-pointer' onClick={()=>registrBtn()}>Register</a>}
             </div>}
         {login && <Login setLogin={setLogin} login={login} setRegistr={setRegistr} registr={registr}/>}
         {registr && <Registr setRegistr={setRegistr} registr={registr} setLogin={setLogin} login={login}/>}

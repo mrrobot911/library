@@ -9,13 +9,11 @@ export default async function handler(
   res: NextApiResponse
 ) {
   try{
-    await dbConnect();
-    const data = {...req.body, password: await bcrypt.hash(req.body.password,10)}
+    await dbConnect();    
+    const data = {...req.body.data, password: await bcrypt.hash(req.body.data.password,10)}
     const user = await users.create(data);
-    const userData = user.toObject({ getters: true });
-    const { password, _id, __v, email, id, ...sendUserData } = userData;
     
-    res.status(200).json(sendUserData);
+    res.status(200).json({ message: 'registered' });
   } catch (error: any ) {
     if (error instanceof MongoError && error.code === 11000){
       res.status(409).json({ message: 'Internet clone is a split personality on the same email.' });

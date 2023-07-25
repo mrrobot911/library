@@ -1,6 +1,7 @@
 'use client'
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { setBook } from "@/store/userSlice";
+import axios from "axios";
 import Image from "next/image";
 interface BookCardProps {
     name:string,
@@ -18,19 +19,20 @@ function BookCard({name,author,text,image}: BookCardProps){
             book: name,
             id: user.id,
         }
-        const response = await fetch('/api/v1/buy', {
-            body: JSON.stringify(data),
+        try{
+        const response = await axios.post('/api/v1/buy', {
+            data: data,
             headers: {
             'Content-Type': 'application/json',
             },
-            method: 'POST',
-        })
-        if(!response.ok) {
-            const err = await response.json();
-            console.log(err);
-        } else {
-            const data = await response.json();
-            dispatch(setBook(data.books));
+        });
+        dispatch(setBook(response.data.books));
+        } catch(err:any) {
+            if (!err?.response) {
+                console.log('No Server Response');
+            } else {
+                console.log(err.response?.data.message);
+            }
         }
     }
     return ( 

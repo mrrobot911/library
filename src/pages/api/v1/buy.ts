@@ -1,7 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import  users  from "@/models/User";
 import dbConnect from "@/lib/connectMongo";
-import { MongoError } from 'mongodb';
 
 export default async function handler(
   req: NextApiRequest,
@@ -10,9 +9,9 @@ export default async function handler(
     try{
         await dbConnect();
 
-        const user = await users.findById(req.body.id).select("password lastname email firstname books");  
-        if ( user && !user.books.includes(req.body.book)){  
-            user.books.push(req.body.book);
+        const user = await users.findById(req.body.data.id).select("password lastname email firstname books");  
+        if ( user && !user.books.includes(req.body.data.book)){  
+            user.books.push(req.body.data.book);
             await user.save();
             const userData = user.toObject({ getters: true }); 
             const { password, _id, ...sendUserData } = userData;

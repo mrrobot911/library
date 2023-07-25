@@ -1,4 +1,5 @@
 'use client'
+import axios from "axios";
 import { Dispatch, FunctionComponent, SetStateAction, useEffect, useRef, useState } from "react";
 
 interface LoginProps {
@@ -52,25 +53,30 @@ const Registr: FunctionComponent<LoginProps> = ({setRegistr, registr, setLogin, 
         const handleSubmit = async (e:React.ChangeEvent<HTMLFormElement>) => {
             e.preventDefault();
 
-        const fData = JSON.stringify({firstname:userData.userFirst, lastname: userData.userLast, email:userData.mail, password: userData.pwd});
-
-        const response = await fetch('/api/v1/register', {
-            body: fData,
-            headers: {
-            'Content-Type': 'application/json',
-            },
-            method: 'POST',
-        })
-        if(!response.ok) {
-            const err = await response.json();
-            setErrMsg(err.message);
-            setValidData({...validData, mail:false});
-            errRef.current?.focus();
-        } else {
-            const data = await response.json();
-            setUserData({userFirst:'',userLast:'',mail:'',pwd:''});
+        const fData = { firstname:userData.userFirst,
+                        lastname: userData.userLast,
+                        email:userData.mail,
+                        password: userData.pwd};
+        try{
+            const response = await axios.post('/api/v1/register', {
+                data: fData,
+                headers: {
+                'Content-Type': 'application/json',
+                },
+            });
+            const data = await response.data.message;
+            data && setUserData({userFirst:'',userLast:'',mail:'',pwd:''});
             setRegistr(false);
-        }  
+        } catch(err:any) {
+            if (!err?.response) {
+                setErrMsg('No Server Response');
+            } else if (err.response?.status === 409) {              
+                setErrMsg(err.response?.data.message);
+            } else {
+                setErrMsg('Registration Failed');
+            }
+            errRef.current?.focus();
+        }
     }
     return ( 
         <section className=" top-[150px] right-[180px] z-10 bg-white absolute w-[250px] h-[382px]">

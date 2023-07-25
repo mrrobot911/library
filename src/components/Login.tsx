@@ -1,5 +1,6 @@
 'use client'
-import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import axios from "axios";
+import { useAppDispatch } from "@/store/hooks";
 import { setAuth, setBook, setFirstName, setId, setLastName } from "@/store/userSlice";
 import { Dispatch, FunctionComponent, SetStateAction, useEffect, useRef, useState } from "react";
 
@@ -29,31 +30,33 @@ const Login: FunctionComponent<LoginProps> = ({setLogin, login, setRegistr, regi
 
     const handleSubmit = async (e:React.ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const fData = JSON.stringify({email:user, password: pwd});
+        const fData = {email:user, password: pwd};
+        try{
 
-        const response = await fetch('/api/v1/login', {
-            body: fData,
-            headers: {
-            'Content-Type': 'application/json',
-            },
-            method: 'POST',
-        })
-        if(!response.ok) {
-            const err = await response.json();
-            setErrMsg(err.massage);
-            errRef.current?.focus();
-        } else {
-            const data = await response.json();
-            
-            dispatch(setFirstName(data.firstname));
-            dispatch(setLastName(data.lastname));
-            dispatch(setId(data.id));
-            dispatch(setBook(data.books));
+            const response = await axios.post('/api/v1/login', {
+                data: fData,
+                headers: {
+                'Content-Type': 'application/json',
+                },
+            });
+            dispatch(setFirstName(response.data.firstname));
+            dispatch(setLastName(response.data.lastname));
+            dispatch(setId(response.data.id));
+            dispatch(setBook(response.data.books));
             dispatch(setAuth(true));
                         
             setUser('');
             setPwd('');
             setLogin(!login);
+        } catch(err:any) {
+            if (!err?.response) {
+                setErrMsg('No Server Response');
+            } else if (err.response?.status === 403) {
+                setErrMsg(err.response.data.massage);
+            } else {
+                setErrMsg('Login Failed');
+            }
+            errRef.current?.focus();
         }
     }
     
