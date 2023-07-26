@@ -30,7 +30,7 @@ const MyInput: FunctionComponent<MyInputProps> = ({item, data, setData, validIte
     return ( 
     <div>
         <label className="text-[15px] leading-[20px] tracking-[0.3px]" 
-        htmlFor={item}>{item === "userFirst" ? "First name": item === "userLast" ? "Last name" : item === "E-mail" ? "E-mail" : "Password"} &nbsp;
+        htmlFor={item}>{item === "userFirst" ? "First name": item === "userLast" ? "Last name" : item === "mail" ? "E-mail" : "Password"} &nbsp;
         {(data[it] || focus[it]) && (validItem[it]
         ? <span className="text-green-600">✔</span> 
         : <span className="text-red-600">✘</span>)}
