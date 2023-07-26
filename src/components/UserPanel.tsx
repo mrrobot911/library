@@ -35,7 +35,7 @@ const UserPanel = ({ user, setUser}:UserPanelProps) => {
                 <div className="mb-[20px]">
                     <p className="text-[25px] leading-[20px] mt-[20px] mb-[30px]">Rented books</p>
                     <ul className="overflow-y-scroll h-[60px] gap-[10px]">
-                        {userData.books.length >= 0 
+                        {userData.books.length > 0 
                         ? userData.books.map(item => {return(<li key={item} className="ml-[30px] text-[20px] tracking-[2px] list-disc capitalize">{item}</li>)}) 
                         : <p> No books yet</p>}
                     </ul>
