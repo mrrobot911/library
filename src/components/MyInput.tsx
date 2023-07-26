@@ -26,12 +26,12 @@ interface MyInputProps {
 }
  
 const MyInput: FunctionComponent<MyInputProps> = ({item, data, setData, validItem, setValidItem, focus, setFocus}) => {
-    type item = keyof typeof data;
+    const it = item as keyof typeof data;
     return ( 
     <div>
         <label className="text-[15px] leading-[20px] tracking-[0.3px]" 
         htmlFor={item}>{item === "userFirst" ? "First name": item === "userLast" ? "Last name" : item === "userLast" ? "E-mail" : "Password"} &nbsp;
-        {(data[item] || focus[item]) && (validItem[item]
+        {(data[it] || focus[it]) && (validItem[it]
         ? <span className="text-green-600">✔</span> 
         : <span className="text-red-600">✘</span>)}
         </label>
@@ -40,7 +40,7 @@ const MyInput: FunctionComponent<MyInputProps> = ({item, data, setData, validIte
             type={item === "userFirst" || item === "userLast"?"text": item === "pwd"? "password":"email"}
             id={item}
             onChange={(e) => setData({...data, [item]:e.target.value})}
-            value={data[item]}
+            value={data[it]}
             autoComplete="off"
             required
             aria-invalid={validItem ? "false" : "true"}
@@ -48,8 +48,8 @@ const MyInput: FunctionComponent<MyInputProps> = ({item, data, setData, validIte
             onFocus={() => setFocus(pre =>({ ...pre, [item]: true}))}
             onBlur={() => setFocus(pre =>({ ...pre, [item]: false}))}
             />
-        <p id={`${item}note`} className={focus[item] && !validItem[item] ? "text-[0.75rem] rounded-[0.5rem] bg-black text-white absolute left-[210px] top-[60px] p-[0.25rem]" : "absolute left-[-9999px]"}>
-            {hint[item]}
+        <p id={`${item}note`} className={focus[it] && !validItem[it] ? "text-[0.75rem] rounded-[0.5rem] bg-black text-white absolute left-[210px] top-[60px] p-[0.25rem]" : "absolute left-[-9999px]"}>
+            {hint[it]}
         </p>
     </div> );
 }
