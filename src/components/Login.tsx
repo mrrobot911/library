@@ -61,7 +61,7 @@ const Login: FunctionComponent<LoginProps> = ({setLogin, login, setRegistr, regi
     }
     
     return ( 
-    <section className="w-[250px] h-[262px] top-[150px] right-[180px] z-10 bg-white absolute">
+    <section className="w-[250px] h-[262px] top-[150px] right-[180px] z-20 bg-white absolute">
         <div className="relative">
             <p className="font-['Forum'] text-[20px] leading-[20px] tracking-[0.4px] uppercase text-center mt-[20px]">Login</p>
             <p ref={errRef} className={errMsg ? "text-red-500 h-[20px] ml-[20px]" : "h-[20px]"} aria-live="assertive">{errMsg}</p>
@@ -86,8 +86,10 @@ const Login: FunctionComponent<LoginProps> = ({setLogin, login, setRegistr, regi
                     value={pwd}
                     required
                     />
-                <button className="font-bold text-[10px] tracking-[1px] px-[20px] py-[9px] border-black border-[1px] mt-[20px]"
-                disabled={!user || !pwd ? true : false}
+                <button className={user && pwd 
+                ? "font-bold text-[10px] tracking-[1px] px-[20px] py-[9px] border-black border-[1px] mt-[20px] duration-200 hover:bg-[#BB945F] hover:border-[#BB945F]"
+                :"font-bold text-[10px] tracking-[1px] px-[20px] py-[9px] border-black border-[1px] mt-[20px]"}
+                disabled={user && pwd ? false : true}
                 >Log In</button>
             </form>
             <div className="flex gap-[10px] ml-[25px] mt-[10px]">

@@ -80,12 +80,14 @@ const Registr: FunctionComponent<LoginProps> = ({setRegistr, registr, setLogin, 
         }
     }
     return ( 
-        <section className=" top-[150px] right-[180px] z-10 bg-white absolute w-[250px] h-[382px]">
+        <section className=" top-[150px] right-[180px] z-20 bg-white absolute w-[250px] h-[382px]">
         <h1 className="font-['Forum'] text-[20px] leading-[20px] tracking-[0.4px] uppercase text-center m-[20px]">Register</h1>
         <form className="w-[200px] mx-[20px] relative" onSubmit={handleSubmit}>
             {Object.keys(userData).map(item =><MyInput key={item}item={item} data={userData} setData={setUserData} validItem={validData} setValidItem={setValidData} focus={userFocus} setFocus={setUserFocus}/>
             )}
-            <button className="font-bold text-[10px] tracking-[1px] px-[20px] py-[9px] border-black border-[1px] mt-[20px]" 
+            <button className={validData.userFirst && validData.userLast && validData.pwd && validData.mail
+                ?"font-bold text-[10px] tracking-[1px] px-[20px] py-[9px] border-black border-[1px] mt-[20px] duration-200 hover:bg-[#BB945F] hover:border-[#BB945F]"
+                :"font-bold text-[10px] tracking-[1px] px-[20px] py-[9px] border-black border-[1px] mt-[20px]"}
             disabled={!validData.userFirst || !validData.userLast || !validData.pwd || !validData.mail ? true : false}
             >Sign Up</button>
         </form>
@@ -94,7 +96,7 @@ const Registr: FunctionComponent<LoginProps> = ({setRegistr, registr, setLogin, 
                 <p className="text-[10px] tracking-[1px] cursor-pointer" onClick={()=>{setRegistr(!registr);setLogin(!login)}}><b>Login</b></p>
         </div>
         {errMsg && <p className="mx-[20px] text-[12px] text-red-600">{errMsg}</p>}
-        <button className="absolute top-[15px] right-[15px]" 
+        <button className="absolute top-[15px] right-[15px]"
             onClick={()=>setRegistr(!registr)}
             >
             <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
