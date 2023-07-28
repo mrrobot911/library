@@ -9,10 +9,15 @@ export default async function handler(
 ) {
   try{
     await dbConnect();
-    const books = await Books.create(req.body)
-    console.log(req.body);
     
-    res.status(200).json(books.toJSON());
+    if (req.method === "POST"){
+      const books = await Books.create(req.body);
+      res.status(200).json({massage: "You shall not pass"});
+      }
+    if (req.method === "GET"){
+      const books = await Books.find().select("name author text image season");     
+      res.status(200).json(books);
+    }
   } catch (error) {
     res.json({error});
   }

@@ -19,7 +19,7 @@ const About = () => {
             <Header_h2 letter={"about"} id="0" />
             <p className="text-center mb-[20px]">The Brooklyn Library is a free workspace, a large number of books and a cozy coffee shop inside </p>
             <div className="flex mx-[20px] gap-[25px]">
-                {imageLink.slice(radio-1,radio+2).map(item => <Image className="block duration-500" key ={item} src={item} width={450} height={560} alt="library photo"/>)}
+                {imageLink.map((item, i) => <Image className={i === radio || i === radio - 1 || i === radio +1 ? "block duration-500" : "hidden"} key ={item} src={item} width={450} height={560} alt="library photo"/>)}
             </div>
             <CheckboxSlider radio={radio} setRadio={setRadio} inputLink={inputLink}/>
         </section>

@@ -19,7 +19,7 @@ export default async function handler(
             res.setHeader("Access-Control-Allow-Origin", "*");
             res.status(200).json(sendUserData);           
         } else {
-        res.status(403).json({massage: "You shall not pass"})
+        res.status(403).json({massage: "You shall not pass"});
         }
     } catch (error) {  
         res.json({error});

@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import OurContacts from "@/components/OurContacts";
 import Providers from "@/components/Provider";
+import Scroll from "@/components/Scroll";
 import Welcome from "@/components/Welcome";
 
 export default function Home() {
@@ -22,6 +23,7 @@ export default function Home() {
           <DigitalLibraryCards />
         </main>
         <Footer />
+        <Scroll />
       </Providers>
     </div>
   )
