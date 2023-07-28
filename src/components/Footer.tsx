@@ -2,7 +2,7 @@ const Footer = () => {
     return ( 
         <footer className="h-[250px] bg-black px-[20px] pt-[20px] text-white">
             <div className="flex justify-between text-[15px] leading-[20px] mb-[10px]">
-                <p className="w-[229px]"><a target="_blank" href="https://yandex.ru/maps/202/new-york/search/286%20Cadman%20Plaza%2C%20New%20York%2C%20NY%2011238%2C%20United%20States/?ll=-73.969812%2C40.757180&sctx=ZAAAAAgBEAAaKAoSCXK%2FQ1Gg%2B0JAEfQ0YJD0BUhAEhIJgsgiTbwDzj8R9rLttDUiuD8iBgABAgMEBSgKOABAygFIAWISbGV0b192X2dvcm9kZT10cnVlagJydZ0BzcxMPaABAKgBAL0BCfdfIcIBBrXHy6f8BOoBAPIBAPgBAIICMzI4NiBDYWRtYW4gUGxhemEsIE5ldyBZb3JrLCBOWSAxMTIzOCwgVW5pdGVkIFN0YXRlc4oCAJICAzIwMpoCDGRlc2t0b3AtbWFwcw%3D%3D&sll=-73.969812%2C40.757180&sspn=0.101362%2C0.046212&z=14.21">286 Cadman Plaza, New York, NY 11238, United States</a></p>
+                <p className="w-[229px] hover:text-[#BB945F] duration-200"><a target="_blank" href="https://yandex.ru/maps/202/new-york/search/286%20Cadman%20Plaza%2C%20New%20York%2C%20NY%2011238%2C%20United%20States/?ll=-73.969812%2C40.757180&sctx=ZAAAAAgBEAAaKAoSCXK%2FQ1Gg%2B0JAEfQ0YJD0BUhAEhIJgsgiTbwDzj8R9rLttDUiuD8iBgABAgMEBSgKOABAygFIAWISbGV0b192X2dvcm9kZT10cnVlagJydZ0BzcxMPaABAKgBAL0BCfdfIcIBBrXHy6f8BOoBAPIBAPgBAIICMzI4NiBDYWRtYW4gUGxhemEsIE5ldyBZb3JrLCBOWSAxMTIzOCwgVW5pdGVkIFN0YXRlc4oCAJICAzIwMpoCDGRlc2t0b3AtbWFwcw%3D%3D&sll=-73.969812%2C40.757180&sspn=0.101362%2C0.046212&z=14.21">286 Cadman Plaza, New York, NY 11238, United States</a></p>
                 <p className="text-end">Mon - Fri<br/> 08:00 am - 07:00 pm</p>
             </div>
             <div className="flex justify-between text-[15px] leading-[20px] mb-[30px]">
@@ -22,8 +22,8 @@ const Footer = () => {
             <hr/>
             <div className="flex justify-between mt-[44px] text-[20px] tracking-[2px]">
                 <p>2023</p>
-                <p><a href="https://rs.school/js-stage0/" target="_blank">The Rolling Scopes School</a></p>
-                <p><a href="https://github.com/mrrobot911" target="_blank">kelwin</a></p>
+                <p><a className="hover:text-[#BB945F] duration-200" href="https://rs.school/js-stage0/" target="_blank">The Rolling Scopes School</a></p>
+                <p><a className="hover:text-[#BB945F] duration-200" href="https://github.com/mrrobot911" target="_blank">kelwin</a></p>
             </div>
         </footer>
      );

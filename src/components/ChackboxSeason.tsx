@@ -14,7 +14,7 @@ function ChackboxSeason({inputLink, season, setSeason}:CheckboxProps){
             }   
     }
     return ( 
-        <ul className="flex my-[40px] justify-start gap-[90px] ml-[20px]">
+        <ul className="flex my-[40px] justify-between mx-[20px] md:gap-[90px] md:justify-start">
         {inputLink.map(item => {return(
             <li key={item}>
                 <input
