@@ -43,12 +43,12 @@ const Header = () => {
         dispatch(setId(''));
     }  
     return ( 
-    <header className="flex relative items-center justify-between max-w-[1440px] h-[90px] bg-black">
+    <header className="flex relative items-center justify-between max-w-[1440px] h-[90px] bg-[#0C0C0E]">
         <h1 className="text-white font-['Forum'] text-[30px] px-[20px] leading-[50px] tracking-[0.6px] font-normal">Brooklyn Public Library</h1>
         <div className="flex flex-row px-5 items-center justify-center">
             <nav className="hidden md:flex md:justify-between md:gap-[40px]">
                 <ul className="flex justify-between gap-[30px]">
-                    {arr.map((item,i) => {return <li key={i}><a className="text-white text-[20px] leading-[50px]" href={`#${i}`}>{item}</a></li>})}
+                    {arr.map((item,i) => {return <li key={i}><a className="text-white text-[20px] leading-[50px] duration-200 hover:text-[#BB945F]" href={`#${i}`}>{item}</a></li>})}
                 </ul>
             </nav>
                 { auth ? <p className="text-[15px] text-[#BB945F] p-[5px] bg-white rounded-[50%] cursor-pointer ml-[40px]"onClick={()=>setMenuUser(!menuUser)}>{`${userData.firstname[0]}${userData.lastname[0]}`}</p> : <a className="block ml-[40px] cursor-pointer"onClick={()=>setMenuUser(!menuUser)}><svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -44,7 +44,7 @@ function BookCard({name,author,text,image}: BookCardProps){
             <p className="w-[355px] text-[15px] tracking-[2px] leading-[40px] capitalize">{text}</p>
             <Image className="absolute bottom-[-1px] right-[-40px]" width={200} height={300} src={image} alt={name} />
             {!user.books.includes(name) 
-            ? <button onClick={()=>buyBook()} className="absolute bottom-[15px] left-[20px] text-[10px] font-bold px-[27px] py-[9px] tracking-[1px] border-black border-[1px]">Buy</button>
+            ? <button onClick={()=>buyBook()} className="absolute bottom-[15px] left-[20px] text-[10px] font-bold px-[27px] py-[9px] tracking-[1px] border-black border-[1px] duration-200 hover:bg-[#BB945F] hover:border-[#BB945F]">Buy</button>
             : <button className="absolute bottom-[15px] left-[20px] text-[#BB945F] text-[10px] font-bold px-[27px] py-[9px] tracking-[1px] border-[#BB945F] border-[1px]">Own</button>
         }
         </article>

@@ -26,7 +26,7 @@ function ChackboxSeason({inputLink, season, setSeason}:CheckboxProps){
                     style={{display:"none"}}
                 />
                 <label tabIndex={0}
-                className="flex justify-center items-center gap-[20px]" 
+                className="flex justify-center items-center gap-[20px] cursor-pointer" 
                 htmlFor={`radio${item}`} 
                 onClick={()=>setSeason(item)}
                 onKeyDown={enterRadio}>

@@ -11,17 +11,17 @@ const LibraryCard = () => {
 
     return (
         <div className="flex items-between justify-between relative">
-            <div className="flex flex-col w-[600px] h-[453px] items-center">
+            <div className="flex flex-col max-w-[600px] h-[453px] items-center mb-[41px]">
                 <h3 className="text-[30px] tracking-[0.6px] mb-[30px]">{auth ? "Your Library card" : "Find your Library card"}</h3>
-                <form className="flex flex-col items-center box-border border-[3px] border-[#BB945F] p-[20px]">
+                <form className="flex flex-col w-[100%] items-center box-border border-[3px] border-[#BB945F] p-[20px]">
                     <div className="pt-[20px] px-[20px] bg-[#BB945F] mb-[15px]">
                         <p className="text-[30px] mb-[20px] tracking-[0.6px] font-['Forum'] leading-[50px]">Brooklyn Public Library</p>
-                        <input className="w-[480px] h-[50px] mb-[25px] px-[20px] py-[8px] rounded-[10px] text-[30px] text-[#8E8E8E] leading-[50px] font-['Forum']" type="text" placeholder="Reader's name"/>
-                        <input className="w-[480px] h-[50px] mb-[25px] px-[20px] py-[8px] rounded-[10px] text-[30px] text-[#8E8E8E] leading-[50px] font-['Forum']" type="text" placeholder="Card number"/>
+                        <input className="w-[100%] mb-[25px] px-[20px] py-[8px] rounded-[10px] text-[30px] text-[#8E8E8E] leading-[50px] font-['Forum']" type="text" placeholder="Reader's name"/>
+                        <input className="w-[100%] mb-[25px] px-[20px] py-[8px] rounded-[10px] text-[30px] text-[#8E8E8E] leading-[50px] font-['Forum']" type="text" placeholder="Card number"/>
                     </div>
                     {auth 
                     ? <ProfileData booksize={user.books.length} fontsize={'10px'}/>
-                    :<input type="submit" value="Check the card" className="font-bold text-[20px] my-[20px] px-[40px] py-[10px] border-[1px] font-['Inter'] border-black rounded-[2px]" />}
+                    :<input type="submit" value="Check the card" className="font-bold text-[20px] my-[20px] px-[40px] py-[10px] border-[1px] font-['Inter'] border-black rounded-[2px] cursor-pointer" />}
                 </form>
             </div>
             <div className="flex flex-col items-end">
@@ -32,11 +32,11 @@ const LibraryCard = () => {
                 }</p>
                 <div>
                     {auth 
-                    ? <button className="w-[75px] py-[10px] box-border border-[2px] rounded-[2px] border-black font-bold font-['Inter'] text-[10px] tracking-[1px]"
+                    ? <button className="w-[75px] py-[10px] box-border border-[2px] rounded-[2px] border-black font-bold font-['Inter'] text-[10px] leading-[10px] tracking-[1px] duration-200 hover:bg-[#BB945F] hover:border-[#BB945F]"
                     onClick={()=>setShow(!show)}
                     >Profile</button> 
-                    : <div className="flex justify-end gap-[20px]"><button className="w-[75px] py-[10px] box-border border-[2px] border-black rounded-[2px] font-['Inter'] text-[10px] tracking-[1px]">Sign Up</button>
-                    <button className="w-[75px] py-[10px] box-border border-[2px] rounded-[2px] border-black font-['Inter'] text-[10px] tracking-[1px]">Log in</button></div>}
+                    : <div className="flex justify-end gap-[20px]"><button className="w-[75px] py-[10px] box-border border-[2px] font-bold leading-[10px] border-black rounded-[2px] font-['Inter'] text-[10px] tracking-[1px] duration-200 hover:bg-[#BB945F] hover:border-[#BB945F]">Sign Up</button>
+                    <button className="w-[75px] py-[10px] box-border border-[2px] font-bold rounded-[2px] border-black leading-[10px] font-['Inter'] text-[10px] tracking-[1px] duration-200 hover:bg-[#BB945F] hover:border-[#BB945F]">Log in</button></div>}
                 </div>
             </div>
             {show && auth && <UserPanel user={show} setUser={setShow}/>}
