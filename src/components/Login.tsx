@@ -15,9 +15,10 @@ const Login: FunctionComponent<LoginProps> = ({setLogin, login, setRegistr, regi
     const userRef = useRef<HTMLInputElement>(null);
     const errRef = useRef<HTMLInputElement>(null);
     
-    const [user, setUser] = useState('');
-    const [pwd, setPwd] = useState('');
-    const [errMsg, setErrMsg] = useState('');
+    const [ user, setUser ] = useState('');
+    const [ pwd, setPwd ] = useState('');
+    const [ errMsg, setErrMsg ] = useState('');
+    const [ load, setLoad ] = useState(false);
     
     const dispatch = useAppDispatch();
     useEffect(() => {
@@ -32,7 +33,7 @@ const Login: FunctionComponent<LoginProps> = ({setLogin, login, setRegistr, regi
         e.preventDefault();
         const fData = {email:user, password: pwd};
         try{
-
+            setLoad(true);
             const response = await axios.post('/api/v1/login', {
                 data: fData,
                 headers: {
@@ -57,13 +58,15 @@ const Login: FunctionComponent<LoginProps> = ({setLogin, login, setRegistr, regi
                 setErrMsg('Login Failed');
             }
             errRef.current?.focus();
+        } finally {
+            setLoad(false);
         }
     }
     
     return ( 
     <section className="w-[250px] h-[262px] top-[150px] right-[180px] z-20 bg-white absolute">
         <div className="relative">
-            <p className="font-['Forum'] text-[20px] leading-[20px] tracking-[0.4px] uppercase text-center mt-[20px]">Login</p>
+            <p className="font-['Forum'] text-[20px] leading-[20px] tracking-[0.4px] uppercase text-center mt-[20px]">{load ? 'Processing...' : 'Login'}</p>
             <p ref={errRef} className={errMsg ? "text-red-500 h-[20px] ml-[20px]" : "h-[20px]"} aria-live="assertive">{errMsg}</p>
             <form className="w-[200px] h-[160px] mx-[20px]" onSubmit={handleSubmit}>
                 <label className="text-[15px] leading-[20px] tracking-[0.3px]" htmlFor="username">E-mail or readers card</label>
