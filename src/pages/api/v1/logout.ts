@@ -7,7 +7,7 @@ export default async function handler(
 ) {
   try{
       res.setHeader("Access-Control-Allow-Origin", "*");
-      res.setHeader("Set-Cookie", `library=''; Path=/api/v1/books; Max-Age=3600`);
+      res.setHeader("Set-Cookie", `library='del'; Path=/api/v1/books; Max-Age=0`);
       res.status(200).json({massage: "sucsess"});    
     } 
   catch (error) {  
