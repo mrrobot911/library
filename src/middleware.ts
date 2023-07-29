@@ -8,9 +8,8 @@ export function middleware(request: NextRequest) {
 
   const token = request.cookies.get('library')?.value || '';
   
-  if(isPrivatePath && token =='') {
-    console.log('1');
-    
+  if(isPrivatePath && !token) {
+
     return NextResponse.redirect(new URL( '/api/v1/books_all', request.url))
   }
 }
