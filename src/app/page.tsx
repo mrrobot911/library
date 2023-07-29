@@ -5,9 +5,9 @@ import Favorites from "@/components/Favorites";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import OurContacts from "@/components/OurContacts";
-import Providers from "@/components/Provider";
 import Scroll from "@/components/Scroll";
 import Welcome from "@/components/Welcome";
+import Providers from "@/utils/Provider";
 
 export default function Home() {
   return (

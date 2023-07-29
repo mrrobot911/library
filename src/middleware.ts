@@ -1,16 +1,16 @@
-import { NextApiResponse } from 'next'
+import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
- 
-export function middleware(request: NextRequest, responce:NextApiResponse) {
+
+export function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname
 
-  const isPublicPath = path === '/api/v1/login' || path === '/api/v1/register' 
+  const isPrivatePath = path === '/api/v1/books' 
 
   const token = request.cookies.get('library')?.value || ''
   
-  if(token) {
-      console.log('1');
-  }  
+  if(!token && isPrivatePath ) {     
+    return NextResponse.redirect(new URL( '/api/v1/books_all', request.url))
+  }
 }
 
 export const config = {
