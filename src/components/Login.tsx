@@ -66,7 +66,7 @@ const Login: FunctionComponent<LoginProps> = ({setLogin, login, setRegistr, regi
     return ( 
     <section className="w-[250px] h-[262px] top-[150px] right-[180px] z-20 bg-white absolute">
         <div className="relative">
-            <p className="font-['Forum'] text-[20px] leading-[20px] tracking-[0.4px] uppercase text-center mt-[20px]">{load ? 'Processing...' : 'Login'}</p>
+            <p className="font-forum text-[20px] leading-[20px] tracking-[0.4px] uppercase text-center mt-[20px]">{load ? 'Processing...' : 'Login'}</p>
             <p ref={errRef} className={errMsg ? "text-red-500 h-[20px] ml-[20px]" : "h-[20px]"} aria-live="assertive">{errMsg}</p>
             <form className="w-[200px] h-[160px] mx-[20px]" onSubmit={handleSubmit}>
                 <label className="text-[15px] leading-[20px] tracking-[0.3px]" htmlFor="username">E-mail or readers card</label>

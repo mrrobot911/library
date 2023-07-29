@@ -47,7 +47,7 @@ const Header = () => {
     }  
     return ( 
     <header className="flex relative items-center justify-between max-w-[1440px] h-[90px] bg-[#0C0C0E]">
-        <h1 className="text-white font-['Forum'] text-[30px] px-[20px] leading-[50px] tracking-[0.6px] font-normal">Brooklyn Public Library</h1>
+        <h1 className="text-white font-forum text-[30px] px-[20px] leading-[50px] tracking-[0.6px] font-normal">Brooklyn Public Library</h1>
         <div className="flex flex-row px-5 items-center justify-center">
             <nav className="hidden md:flex md:justify-between md:gap-[40px]">
                 <ul className="flex justify-between gap-[30px]">

@@ -81,7 +81,7 @@ const Registr: FunctionComponent<LoginProps> = ({setRegistr, registr, setLogin, 
     }
     return ( 
         <section className=" top-[150px] right-[180px] z-20 bg-white absolute w-[250px] h-[382px]">
-        <h1 className="font-['Forum'] text-[20px] leading-[20px] tracking-[0.4px] uppercase text-center m-[20px]">Register</h1>
+        <h1 className="font-forum text-[20px] leading-[20px] tracking-[0.4px] uppercase text-center m-[20px]">Register</h1>
         <form className="w-[200px] mx-[20px] relative" onSubmit={handleSubmit}>
             {Object.keys(userData).map(item =><MyInput key={item}item={item} data={userData} setData={setUserData} validItem={validData} setValidItem={setValidData} focus={userFocus} setFocus={setUserFocus}/>
             )}

@@ -1,6 +1,6 @@
 'use client'
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Header_h2 from "./Header_h2";
 import CheckboxSlider from "./ChackboxSlider";
 
