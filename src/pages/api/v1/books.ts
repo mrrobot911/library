@@ -18,9 +18,9 @@ export default async function handler(
       }
     if (req.method === "GET"){
       const books = await Books.find().select("name author text image season");
-      const token = req.cookies.library;
+      const token = (req.cookies as any).library;
       const userName = jwt.verify(token, process.env.TOKEN_SECRET!);   
-      const user = await users.findOne({email:userName.email}).select("password lastname email firstname books");    
+      const user = await users.findOne({email:(userName as any).email}).select("password lastname email firstname books");    
       const userData = user.toObject({ getters: true });    
       const { password, _id, ...sendUserData } = userData;
       const arr = {
