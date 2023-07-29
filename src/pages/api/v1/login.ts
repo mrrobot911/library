@@ -23,7 +23,7 @@ export default async function handler(
       }
       const token = await jwt.sign(tokenData, process.env.TOKEN_SECRET!, {expiresIn: "1h"})
       res.setHeader("Access-Control-Allow-Origin", "*");
-      res.setHeader("Set-Cookie", `library=${token}; Path=/; Max-Age=3600`);
+      res.setHeader("Set-Cookie", `library=${token}; Path=/api/v1/books; Max-Age=3600`);
       res.status(200).json(sendUserData);    
     } else {
       res.status(403).json({massage: "You shall not pass"})

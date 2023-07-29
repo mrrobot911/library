@@ -5,6 +5,7 @@ import Registr from './Registr';
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { setAuth, setBook, setFirstName, setId, setLastName } from "@/store/userSlice";
 import UserPanel from './UserPanel';
+import axios from 'axios';
 
 const arr = [
     "About",
@@ -22,6 +23,7 @@ const Header = () => {
     const [ registr, setRegistr ] = useState<boolean>(false);
     const [ user, setUser ] = useState<boolean>(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    
     const dispatch = useAppDispatch();
     const loginBtn = () => {
         setLogin(!login);
@@ -35,7 +37,8 @@ const Header = () => {
         setUser(!user)
         setMenuUser(!menuUser);
     }
-    function resetUserData (){
+    async function resetUserData (){
+        await axios.get('/api/v1/logout');
         dispatch(setAuth(false));
         dispatch(setBook([]));
         dispatch(setFirstName(''));
