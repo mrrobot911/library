@@ -17,7 +17,7 @@ const About = () => {
     return ( 
         <section>
             <Header_h2 letter={"about"} id="0" />
-            <p className="text-center mb-[20px]">The Brooklyn Library is a free workspace, a large number of books and a cozy coffee shop inside </p>
+            <p className="text-center mb-[20px] text-[20px] leading-[40px]">The Brooklyn Library is a free workspace, a large number of books and a cozy coffee shop inside </p>
             <div className="flex mx-[20px] gap-[25px]">
                 {imageLink.map((item, i) => <div key ={item} className={i === radio || i === radio - 1 || i === radio +1 ? "relative max-w-[450px] max-h-[560px] block duration-500" : "hidden"}><Image src={item} width={450} height={560} alt="library photo"/></div>)}
             </div>
