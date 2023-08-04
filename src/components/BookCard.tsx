@@ -14,7 +14,7 @@ interface BookCardProps {
 function BookCard({name,author,text,image}: BookCardProps){
     const user = useAppSelector((state) => state.user);
     const [baying, setBaying] = useState(false);
-    
+
     const dispatch = useAppDispatch();
     async function buyBook() {
         const data = {
